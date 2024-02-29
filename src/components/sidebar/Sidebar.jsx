@@ -1,0 +1,42 @@
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import './sidebar.scss'
+import Links from './links/Links'
+import ToggleButton from './toogleButton/ToggleButton'
+
+const variants = {
+  open: {
+    clipPath: "circle(1200px at 50px 50px)",
+    transition: {
+      type: "spring",
+      stiffness: 20,
+    }
+
+  },
+  closed: {
+    // allow to custom shape
+    clipPath: "circle(30px at 50px 50px)",
+    transition: {
+      delay: 0.3,
+      type: "spring",
+      stiffness: 400,
+      damping: 40,
+    }
+  }
+}
+
+const Sidebar = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    // apply animate to the parent will apply also to the children
+    <motion.div className='sidebar' animate={open? "open" : "closed"}>
+        <motion.div className="bg" variants={variants}>
+            <Links />
+        </motion.div>
+        <ToggleButton setOpen={setOpen} />
+    </motion.div>
+  )
+}
+
+export default Sidebar
